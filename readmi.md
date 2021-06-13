@@ -78,7 +78,51 @@ Aula #01:
    -> Criamos uma pasta controllers, onde criamos uma classe 'SettingsController';
    -> Refaturamos a parte de rota, onde dividimos a resposabilidade com controlador onde colocamos as contante com os metodos para classe do controlador, assim na rota criamos uma constante que vai receber essa classe e os metodos;
 
+Aula #03:
+   <!-- Criando objeto service -->
+   -> Começamos restruturando o projeto, criando um obejto de serviço, para que ele fique responsavel pela parte de criação dos nossos atributos e repositorios, pois é um padrao mais agradavel que não fique essa responsabilidade para controlador;
+   -> Criamos a classe de serviço e tranferimos a parte de receber o repositorio, e ciar os atributos;
+   -> Criamos uma interface onde os parametros são os atributos que serão criados, com suas tipagens;
+   -> Na classe service, usamos o 'create()' desestruturando e recebendo os paramentro da intreface e associando a interface criada;
 
+   <!-- Tratamento de erros -->
+   -> Atribuimos a uma constante o acesso a um função 'findOne' onde a mesma faz um query basica de ler um dado por vez a query do atributo username seria : 'Select * from settings where username = "username limit 1"';
+   -> Fazemos um teste usando 'if' na constante que criamos acima, onde se for veraddeiro significa q o dado existe, assim trazendo a função 'try' que tem caracterista de tratar erros assim a função traz o objeto 'Error' onde podemos atribuir um texto de aviso, então se o teste retorna falso, ele segue os blocos seguintes fazendo o salvamento no banco se não ele retorna a resposata do erro para camada que acessou o service que seria no caso a camada controller;
+   -> Mas para camada controller receber esses dados e devolver para o front que seria o usuario criamos um bloco try tambem no controller onde teremos a constante que recebe a camada service e tambem o return que traz a resposta, que neste caso seria o sucesso na operação, e a função 'catch' vai receber a excessão que seria o erro, colocamos como parametro o 'err', que vai retornar a resposta com um parametro de erro, recebendo a chave 'message' e seu valor sera o texto que passamos para o 'try' da camada service;
+
+   <!-- Criando tabela de Usuarios -->
+   -> Como de inicio para cria uma tabela junto a sua migration usamos o comando yarn typeorm migration:create -n "nome da migration";
+   -> Criamos a estrutura que queremos subir para o banco de dados, e o down e rodamos a migration;
+   -> Seguindo o fluxo da estruturas, fazemos agora a criação das entidade da tabela users;
+   -> Criar o repositorio usando a entidade como parametro;
+   -> Criar service para essa entidade com a regra de negocio;
+   -> Criando o service, a unica propriedade que vamos trazer é o email, executamos a nossa regra de negocio que seria:
+      ->Verificar se usuario existe;
+      ->Se não existir, criar e salvar;
+      ->Se existir retornar o user
+   -> Criamos o controller da classe, nossa unica difereça é que colocamos um retorno da classe como uma 'promisse' significando uma promessa de retorno desse tipo;
+
+   <!-- Criando Tabela Menssagem -->
+   -> Seguimos o mesmo fluxo de criação de classes e arquivos que ja vemos criado;
+   -> O que temos diferente nesta parte e criação de relacao entre tabelas e colunas, onde expressamos a coluna e sua chave primaria;
+   -> Tambem como podemos recebe um valor em certa coluna null, usamos a propriedade 'isNullable';
+   -> Para contruir tal relação devemos criar uma chave estrangeira que sera rastreada pelo banco de dados para saber com qual coluna e tabela tera relação assim trazendo tal dado, sua estrutura é usar o 'foreignKeys' contruindo um array com as informações dessa relação, sendo referencia de Tabela e Coluna assim criando uma nova coluna, em seguida passamos parametros de segurança para caso a tabela principal a tabela pai seja deletada oq vai acontecer exemplos colocar os valores de volta a null ou um evento em cascade;
+   -> Uma outra diferença seria na classe entitidades, onde devemos efetuar um 'JoinColunm' onde associamos as tabelas, tambem 'ManyToOne' onde ele seguinifica a relação sendo de muitos para um ou um para muitos, que nesse caso sera de muitos(menssagens) para um(usuario), por fim trazemos o objeto de relação direto para a entidade que vai se relacionar;
+   -> Como fim de prache, efetuamos a criação da rota;
+   -> Ao testar a funcionalidade, rodamos um teste com o admin_id como null, simbolizando o usuario, e outra vez com admin_id sendo o atendente respondendo;
+   -> Para termos um id gerado para o admin, usamos um site de geração de uuid "www.uuidgenerator.net";
+
+   <!-- Buscar mensagens do Usuario -->
+   -> Aqui vamos trazer uma listagem de dados, que podemos ser perdido, ou uma consulta;
+   -> Colocamos mais um serviço, na classe de services de mensagem, criamos uma função que tem uma constante que vai receber o repositorio acessando a função 'find' onde diferente do findOne que traz um objeto o find traz uma lista, do parametro desejado, assim retornando a constante, podemos tambem usanod 'where' na coluna uma relação e assim trazer todos os dados;
+   -> Pós isso criamos mais uma funçao na camada de controller de message, onde essa funçao tera como padrao um request e response, com uma contante que vai um request inves de usar o body usara o 'param' que vai enviar pela url via get um parametro para receber o valor;
+   -> Criamos a constante que vai receber a instancia do messageservice, então com outra contante recebendo a constante anterior acessandao a função que criamos como novo serviço na camada service;
+   -> Nosso return sera um response com a contante 'list';
+   -> Para rodar o serviço, antes adicionamos uma rota de message com metodo get que vai receber um parametro;
+   -> Pós isso mexemos como restruturação, criamos um atributo em todas nossas classes de service, que recebe uma tipagem de repository e classe que esta sendo usada;
+   -> Sendo private somente aquela classe podera acessar o metodo;
+   -> Usamos o construtor para padronizar o acesso da função 'getCustomRepository' de cada classe, assim acessando atravez o metodo 'this' que significa acessar algo dentro do proprio objeto;
+   
 
 #Comandos:
 ->yarn add express
@@ -91,6 +135,8 @@ Aula #01:
 ->yarn typeorm migration:run
 ->yarn add uuid
 ->yarn add @types/uuid -D
+->yarn typeorm migration:create -n CreateUsers
+->yarn typeorm migration:run
 
 #Tecnologias:
 ->Express.js
