@@ -123,6 +123,28 @@ Aula #03:
    -> Sendo private somente aquela classe podera acessar o metodo;
    -> Usamos o construtor para padronizar o acesso da função 'getCustomRepository' de cada classe, assim acessando atravez o metodo 'this' que significa acessar algo dentro do proprio objeto;
    
+Aula #04:
+
+<!-- Construindo o protocolo Websocket -->
+   -> Utilizaremos o socket.io, assim instalamos o mesmo no projeto, em seguida instalamos suas tipagens;
+   -> Importamos as funçoes necessario tanto do http que nativo do node, quanto as de dentro do socket;
+   -> Atribuimos a uma constante a criação da conexão usando como parametro nosso app que ja recebia a conexao do servido via express do node, está contante sera nossa conexao 'http';
+   -> Com isso numa nova constante instanciamos o novo objeto de servidor, que usamo como parametro no http, 
+   assim ele se torna a conexao websocket;
+   -> Pós isso usamo a ultima contante para realizar a conexão com os dois protocolos via 'socket';
+   -> Como tinhamos uma conexao ja rodando via expres, agora acessamos no listen para acessar a porta 3333, a constante que recebe o app, sendo ele http;
+
+<!-- Criando uma forma de acessar a pasta public para usar view html -->
+   -> Importando o 'path' do node podemos estar trabalhando com caminhos de arquivos dentro de suas funções;
+   -> Entao usando funções podemos passar um novo caminho para o node, onde ele ira buscar views, mas precisamos converte para html, assim trazemos uma novo biblioteca q é a 'ejs', para q possamos converter e ele enterder nosso arquivos que serão renderizados;
+   -> Setamos isso atraves do node, na sua engine que o arquivo sera para html, assim pegamos atraves de uma rota get na url, onde no browser ele fara uma requisição e sua resposta sera atraves do 'render', renderizando uma view que estamos usando atraves do caminho do arquivo;
+   -> A contante io acessa o metodo 'on' que realiza a conexão e a comunicação websocket mostrando uma mensagem e recebendo o id;
+
+<!-- Conectando com websocket -->
+   -> Verificamos no arquivo chat.js, onde podemos colocar um console.log(), para verificar se ao clicar no botão esta disparando algum evento;
+   -> Em seguida redefinimos nossa estrutura de pasta e arquivos, onde criamos um arquivo http.ts, para armazenar o codigo que tera a estrutura para conexão dos protolos e conversão do html, assim podemos exportas ambas para uso;
+   -> No nosso arquivo server.ts agora importamos o arquivo http, para utilizar a conexão assim tudo estando desacoplado;
+   -> Dentro do arquivo chat.js, ja podemos trabalhar com os eventos, então criamos uma cosntante onde ela recebe a função io() que faz a comunicação entre as duas parte via websocket, e ja vemos via terminal a conexao e que ele fica escutando o lado do client;
 
 #Comandos:
 ->yarn add express
@@ -137,11 +159,16 @@ Aula #03:
 ->yarn add @types/uuid -D
 ->yarn typeorm migration:create -n CreateUsers
 ->yarn typeorm migration:run
+->yarn add socket.io
+->yarn @types/socket.io -D
+->yarn add ejs
+->yarn add socket.io-client
 
 #Tecnologias:
 ->Express.js
 ->typeORM.js
 ->uuid.js
+->socket.io
 
 
 #Ferramentas:
