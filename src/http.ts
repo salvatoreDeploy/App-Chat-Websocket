@@ -37,7 +37,7 @@ const io = new Server(http);//Criando o protocolo websocket
 }) */
 
 io.on("connection", (socket: Socket) => {
-    console.log("Se conectou", socket.id);
+    /* console.log("Se conectou", socket.id); */
 });
 
 app.use(express.json());

@@ -6,9 +6,8 @@ import path from "path";
 import "./database/";
 import { routes } from './routes';
 
-import "./websocket/client";
 import { http } from './http';
-
+import "./websocket/client";
 
 /* const app = express(); */
 

@@ -146,6 +146,42 @@ Aula #04:
    -> No nosso arquivo server.ts agora importamos o arquivo http, para utilizar a conexão assim tudo estando desacoplado;
    -> Dentro do arquivo chat.js, ja podemos trabalhar com os eventos, então criamos uma cosntante onde ela recebe a função io() que faz a comunicação entre as duas parte via websocket, e ja vemos via terminal a conexao e que ele fica escutando o lado do client;
 
+<!-- Conexão lado Cliente -->
+   -> A constante io acessando o metodo on passando os parametro de connect e fazendo uma arrow function em socket recebemos a constante socket se conectando e recebendo os parametros de primeiro acesso, e criadno uma interface para capturar dados que passamos como parametro ate podendo verificar no terminal a captura de dados vindo do websocket;
+   -> Pós isso no arquivo chat.js contruimos o primeiro evento que vai receber, a função da conexao do io(), as contantes que vao receber os parametro vindo da conexao e apartir daki vamos emitir os dados a serem capturados assim retornando colocando funções de callback e error caso seja necessario essa tratativa;
+
+<!-- Criando Tabela Conexao -->
+   -> Seguindo o padrão mesmo padra de estrutura, criamos uma migration, uma entidade, um repository e um controlador;
+   -> Na nossa migration, dessa vez usamos uma forma diferente, usamo uma queryrunner, e utilizamos uma função que cria e estrutura a forengeKey, sendo fora da estrutura de criação de tabela;
+   -> No connectionsService criamos um create trazendo as tabelas que seria necssarios trabalhar os dados;
+
+<!-- Conexão websocket cliente e banco de dados -->
+   -> Dentro da nossa estrutura de conexao, trazemos os objetos de service do user e connection, para que ambos se interliguem, e compartilhems seus dados;
+   -> Na estrutura de primera conexão, criamos constantes que vão receber os parametro que vai ser trazidos do objeto connectionsService, e seria uma interligação entre ambos bancos;
+   -> Desestruturamos as contantes de text e email para estar recebendo os paramentros direto da interface;
+   -> Agora para salvar a conexao com socket_id e seu user_id, usamos uma constante que vai receber atraves do userservice a função que percorre a tabela email verificando os dados;
+   -> Apartir dai efetuamos os teste onde se não existir ele vai criar se existir ele vai retornar o socket acessando o id do mesmo;
+
+<!-- Salvando dados websocket no banco de dados -->
+   -> Apos esses passo vamos refatorar algumas parte e imcorparar outras, sendo elas no nosso connetionsService, vamos criar uma nova função findByUserId dentro da classe que recebe como parametro a coluna "user_id" e assim vai percorrer e verificar a tabela user_id, retornando a constante;
+   -> Assim dentro do client, caso o user ja existir, para que não haja um novo registro toda vez que feixar ou alguem iniciar o supporte novamente, introduzimos a função que acabamos de cria onde ele vai verificar a coluna do user_id que eh uma das chaves, assim persistindo os dados atuais so atualizando o id do socket e não criando um registro novo;
+   -> Tambem criamos uma variavel user_ id que inicia vazia e dentro do if caso não haja user, a variavel vai receber o user acessado novo id, caso seja o caso do else, a variavel vai recebr o user existente acessando o id, assim podemos trabalhar constante com a variavel;
+   -> Neste mesmo else acoplamos um teste para se haver conexão ou não, caso não haja criamos uma nova, tendo sobreescrevemos com dados ja setado persistindo os dados retornando a contante;
+   -> Criamos uma constante de messageService que vai receber o objeto do service da mensagem, onde ele vai criar a usando os parametro do text e do user_id assim persisntindo os dados na tabela do  banco de dados;
+
+<!-- Desabilitando o support -->
+   -> Descomentamos a funçao onload e vai estar trabalhando em conjuto com uma rota, que rebera os dados da tabela setings se o valor do chat sendo verdadeiro e falso;
+   -> Dentro do nosso SettingsService, criamos um nova função sendo a findByUserName recebendo por parametro o 'username', criamos uma função que atraves do repositorio vai percorrer e trazer a propriedade username e dando um retorno da constante;
+   -> No controlador da settings, trazemos essa função com o parametro de requisição e resposta, aonde vai ser contruida estas contante recebendo o dados do username, atraves dos params que são das rotas;
+   -> Criamos constantes paras estar recebendo o objeto do settingsService, outra que vai estar acessando a propria funçao sendo a propriedade como parametro, retornando a resposta em json, da constante;
+   -> Criamos uma rota via get que vai ter como a rota settings com o parametro de um username; que vai acessar nosso metodo findbyusername;
+   ->Agora se mudarmos diretamente no banco o valor de chat nesse username, ele vai poder verificar se esta ativo o support ou não;
+   -> Para podemros mudar tal funcionalidade se modificar manualmente no banco, criamos uma função dentro do nosso SettingsService que vai ser a update(), que vai receber como parametro o usarname e o chat usamos uma contante que vai receber o acesso do repository da classe, onde dentro dela podemos acessar uma outra função chamada createQueryBuilder, que nos permite criar uma query dentro da função, e passamos para ela query de atulizar uma tabela setando a coluna a ser modificada, com a clausula de filtro onde a propriedade deve ser igual ao parametro que esta chamdando esas função, em seguida a função de executar;
+   -> Como de prache seguindo o fluxo partimos para o controlador da class, criando a função e estruturando  com parametro de requisição e resposta estruturando as contantes que vão recebr os dados atraves do params das rotas e o outro do corpo da requisição;
+   -> Criamos constantes para instanciar o objeto, em seguida acessar a função update que vai ter os parametro das constantes username e chat, e a resposta vai ser o retorno em json da constante;
+   -> Criamos uma rota com verbo put que é utilizado para update em banco de dado, a rota vai estar utilizando o metodo update;
+   -> Dentro do insominia, criamos mais um arquivo acessando essa rota, onde passamos o json com chave do chat e o valor true para estar ativo o support e false não;
+
 #Comandos:
 ->yarn add express
 ->yarn add @types/express -D

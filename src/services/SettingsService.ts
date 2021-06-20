@@ -1,5 +1,5 @@
 import { getCustomRepository, Repository } from 'typeorm';
-import { Setting } from '../entities/Settings';
+import { Settings } from '../entities/Settings';
 import { SettingsRepository } from '../repositories/SettingsRepository';
 
 interface ISettingsCreate {
@@ -9,7 +9,7 @@ interface ISettingsCreate {
 
 class SettingsServices{
 
-    private settingsRepository: Repository<Setting>
+    private settingsRepository: Repository<Settings>
 
     constructor(){
         this.settingsRepository = getCustomRepository(SettingsRepository);
@@ -36,6 +36,25 @@ class SettingsServices{
 
         return settings;
     }
+
+    async findByUserName(username: string){
+        const settings = await this.settingsRepository.findOne({
+            username,
+        });
+
+        return settings;
+    }
+
+    async update(username: string, chat: boolean){
+        const settings = await this.settingsRepository
+        .createQueryBuilder().
+        update(Settings)
+        .set({ chat })
+        .where("username = :username", {
+            username
+        })
+        .execute();
+    }    
 }
 
 export { SettingsServices }
