@@ -182,6 +182,14 @@ Aula #04:
    -> Criamos uma rota com verbo put que é utilizado para update em banco de dado, a rota vai estar utilizando o metodo update;
    -> Dentro do insominia, criamos mais um arquivo acessando essa rota, onde passamos o json com chave do chat e o valor true para estar ativo o support e false não;
 
+Aula #05
+
+<!-- Trazer todas mensagens do usuario -->
+
+<!-- Criar estrutura(pastas e arquivos) de admin -->
+
+<!-- Conseguir verificar todas conexoes que os admin_id = null -->
+
 #Comandos:
 ->yarn add express
 ->yarn add @types/express -D
@@ -205,6 +213,7 @@ Aula #04:
 ->typeORM.js
 ->uuid.js
 ->socket.io
+->mustach
 
 
 #Ferramentas:

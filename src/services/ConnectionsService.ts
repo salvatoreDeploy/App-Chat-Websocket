@@ -34,6 +34,15 @@ class ConnectionsService{
 
         return connections;
     }
+
+    async findAllAdmin(){
+        const connections = await this.ConnectionsRepository.find({
+            where: { admin_id: null},
+            relations: ["users"]
+        });
+
+        return connections;
+    }
 }
 
 export { ConnectionsService }

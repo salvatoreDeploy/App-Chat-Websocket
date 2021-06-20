@@ -1,4 +1,4 @@
-import express, { request, response } from "express";
+import express, { request, response } from "express";2
 import { createServer } from "http";
 import { Server, Socket } from "socket.io";
 import path from "path";
@@ -8,6 +8,7 @@ import { routes } from './routes';
 
 import { http } from './http';
 import "./websocket/client";
+import "./websocket/admin"
 
 /* const app = express(); */
 
