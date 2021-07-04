@@ -138,7 +138,7 @@ Aula #04:
    -> Importando o 'path' do node podemos estar trabalhando com caminhos de arquivos dentro de suas funções;
    -> Entao usando funções podemos passar um novo caminho para o node, onde ele ira buscar views, mas precisamos converte para html, assim trazemos uma novo biblioteca q é a 'ejs', para q possamos converter e ele enterder nosso arquivos que serão renderizados;
    -> Setamos isso atraves do node, na sua engine que o arquivo sera para html, assim pegamos atraves de uma rota get na url, onde no browser ele fara uma requisição e sua resposta sera atraves do 'render', renderizando uma view que estamos usando atraves do caminho do arquivo;
-   -> A contante io acessa o metodo 'on' que realiza a conexão e a comunicação websocket mostrando uma mensagem e recebendo o id;
+   -> A constante io acessa o metodo 'on' que realiza a conexão e a comunicação websocket mostrando uma mensagem e recebendo o id;
 
 <!-- Conectando com websocket -->
    -> Verificamos no arquivo chat.js, onde podemos colocar um console.log(), para verificar se ao clicar no botão esta disparando algum evento;
@@ -190,6 +190,27 @@ Aula #05
 
 <!-- Conseguir verificar todas conexoes que os admin_id = null -->
 
+<!-- Construir a vizualização de todos atendimentos que tiverem null -->
+
+<!-- Contruir conexão entre atendente e clinte -->
+
+<!-- Construindo a vizualização de mensagens atendente e cliente -->
+
+<!-- Comunicação de envio e recebimento de mensagem cliente e atendente -->
+
+<!-- Contruindo a parte visual da comunicação atendente e cliente (menssageiro atendente) -->
+
+<!-- Contruindo a parte visual da comunicação atendente e cliente (menssageiro cliente) -->
+
+<!-- Botão de enviar do lado do cliente e suporte recebendo o dado -->
+
+<!-- Envio de mensagens -->
+
+<!-- Conexão de mais clientes -->
+
+<!-- Saida do cliente ja em suporte -->
+
+
 #Comandos:
 ->yarn add express
 ->yarn add @types/express -D
@@ -212,6 +233,7 @@ Aula #05
 ->Express.js
 ->typeORM.js
 ->uuid.js
+->ejs
 ->socket.io
 ->mustach
 
